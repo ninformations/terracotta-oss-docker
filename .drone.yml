@@ -11,6 +11,7 @@ steps:
   image: plugins/docker
   settings:
     auto_tag: true
+    auto_tag_suffix: 5.8.0
     context: 5.8.0/server
     dockerfile: 5.8.0/server/Dockerfile
     repo: astamia/terracotta-server-oss
@@ -36,9 +37,61 @@ steps:
   image: plugins/docker
   settings:
     auto_tag: true
-    auto_tag_suffix: linux-arm64
+    auto_tag_suffix: 5.8.0-linux-arm64
     context: 5.8.0/server
     dockerfile: 5.8.0/server/Dockerfile
+    repo: astamia/terracotta-server-oss
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    event:
+      exclude:
+      - pull_request
+
+---
+kind: pipeline
+name: 5.6.4-linux-amd64-docker
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    auto_tag_suffix: 5.6.4
+    context: 5.6.4/server
+    dockerfile: 5.6.4/server/Dockerfile
+    repo: astamia/terracotta-server-oss
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    event:
+      exclude:
+      - pull_request
+
+---
+kind: pipeline
+name: 5.6.4-linux-arm64-docker
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    auto_tag_suffix: 5.6.4-linux-arm64
+    context: 5.6.4/server
+    dockerfile: 5.6.4/server/Dockerfile
     repo: astamia/terracotta-server-oss
     username:
       from_secret: docker_username
