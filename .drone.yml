@@ -1,0 +1,46 @@
+---
+kind: pipeline
+name: 5.8.0-linux-amd64-docker
+
+platform:
+  os: linux
+  arch: amd64
+
+- name: publish
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    dockerfile: 5.8.0/server/Dockerfile
+    repo: astamia/terracotta-server-oss
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    event:
+      exclude:
+      - pull_request
+
+---
+kind: pipeline
+name: 5.8.0-linux-arm64-docker
+
+platform:
+  os: linux
+  arch: arm64
+
+- name: publish
+  image: astamia/terracotta-server-oss
+  settings:
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    dockerfile: 5.8.0/server/Dockerfile
+    repo: plugins/docker
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    event:
+      exclude:
+      - pull_request
