@@ -6,6 +6,7 @@ platform:
   os: linux
   arch: amd64
 
+steps:
 - name: publish
   image: plugins/docker
   settings:
@@ -29,13 +30,14 @@ platform:
   os: linux
   arch: arm64
 
+steps:
 - name: publish
-  image: astamia/terracotta-server-oss
+  image: plugins/docker
   settings:
     auto_tag: true
     auto_tag_suffix: linux-arm64
     dockerfile: 5.8.0/server/Dockerfile
-    repo: plugins/docker
+    repo: astamia/terracotta-server-oss
     username:
       from_secret: docker_username
     password:
