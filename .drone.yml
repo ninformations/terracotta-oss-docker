@@ -11,7 +11,7 @@ steps:
   image: plugins/docker
   settings:
     auto_tag: true
-    dockerfile: 5.8.0/server/Dockerfile
+    context: 5.8.0/server
     repo: astamia/terracotta-server-oss
     username:
       from_secret: docker_username
@@ -36,7 +36,7 @@ steps:
   settings:
     auto_tag: true
     auto_tag_suffix: linux-arm64
-    dockerfile: 5.8.0/server/Dockerfile
+    context: 5.8.0/server
     repo: astamia/terracotta-server-oss
     username:
       from_secret: docker_username
